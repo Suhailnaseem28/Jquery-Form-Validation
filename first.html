@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+</head>
+<!-- for dob   -->
+<!-- 
+    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
+        rel='stylesheet'>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
+<style>
+    .container {
+        /* For browsers that do not support gradients */
+        /* background-color: rgb(255, 247, 247); */
+
+        background-image: linear-gradient(to right, orange, rgb(146, 140, 140), green);
+
+    }
+
+    .error {
+        color: rgb(243, 8, 8);
+        font-style: italic;
+
+    }
+
+    hr {
+        width: 50%;
+        height: 1px;
+        /* background-color: rgb(255,247,247); */
+        /* background-image: linear-gradient(to right, rgb(243, 143, 3) , rgb(5, 107, 29)); */
+        background-image: linear-gradient(to right, orange, white, green);
+
+    }
+
+    .header {
+        /* height: 80px; */
+        /* background-color: rgb(255,247,247); */
+
+        /* background-image: linear-gradient(to right, rgb(243, 143, 3) , rgb(5, 107, 29)); */
+        background-image: linear-gradient(to right, orange, rgb(187, 179, 179), green);
+
+
+    }
+
+    /* //css for hide/show */
+    #parentdiv {
+        display: none;
+    }
+
+    .hideme {
+        display: none;
+    }
+</style>
+</head>
+
+<body class="container col-sm-6  mt-3 mb-5">
+    <div class="header  rounded text-center bg-info text-white">
+        <h2 class="font-weight-bold">JQuery Validation Form</h2>
+    </div>
+    <hr>
+
+    <form class="form" name="form" id="form" action="https://webhook.site/82c13717-b2a2-4bfb-9907-c71314c8d2be"
+        method="post">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name">
+        </div>
+        <hr>
+        <input type="button" onclick="switchVisible()"  class="btn btn-success btn-sm mb-1 float-right" id="button1" value="Switch"
+           >
+
+        <div id="selfdiv"  class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email">
+            <div class="caption"><small>In case You don't have an email account switch to parent's email</small>
+            </div>
+
+        </div>
+
+        <div id="parentdiv" class="form-group">
+            <label for="email">Parent's Email</label>
+            <input type="email" name="email" id="parentemail" class="form-control" placeholder="Enter parent's Email">
+            <div class="caption"><small>The Email Id should be valid!</small>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" maxlength="8" class="form-control"
+                placeholder="Enter Password">
+        </div>
+        <hr>
+
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" name="phone" id="phone" class="form-control" maxlength="10" pattern="[0-9]{10}"
+                placeholder="Enter Phone ">
+        </div>
+        <hr>
+
+
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea name="address" class="form-control" id="address" cols="30" rows="2"
+                placeholder="Enter Your Address"></textarea>
+        </div>
+        <hr>
+        <div class="row form-group">
+            <div class="col-md-6  col-sm-6"> <label for="country">Country</label>
+
+                <select id="countySel" class="form-control" name="country" placeholder="Choose Country">
+                    <option>Select Country</option>
+                    <!-- <option>India</option>
+                    <option>Spain</option>
+                    <option>Hungary</option>
+                    <option>USA</option> -->
+
+                </select>
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <label for="state" class="page1">State</label>
+
+                <select id="stateSel" class="form-control" name="state">
+                    <option value="">Select State</option>
+                </select>
+            </div>
+
+
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <label for="city" class="page1">City</label>
+
+                <select id="citySel" class="form-control" name="city">
+                    <option value="">Select City</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <label for="city" class="page1">Zip</label>
+
+                <select id="zipSel" class="form-control" name="zip">
+                    <option value="">Select zip</option>
+                </select>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <label for="dob">DOB</label>
+                <input type="date" id="dob" name="dob" class="form-control">
+            </div>
+
+            <div class=" col-md-6 col-sm-6 form-group">
+                <label for="age">Age</label>
+                <input type="text" id="age" name="age" class="form-control" readonly>
+
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="radio form-group">
+            <label for="gender">Gender</label> <br>
+            <input type="radio" name="gender" onclick="displayRadioValue()" value="Male">
+            <label for="gender">Male</label>
+            <input type="radio" name="gender" onclick="displayRadioValue()" value="Female">
+            <label for="gender">Female</label>
+            <input type="radio" name="gender" onclick="displayRadioValue()" value="Other">
+            <label for="gender">Other</label>
+            <div id="dis"></div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label for="inputSkills">Skills</label>
+
+            <div class="row form-group">
+                <div class="col-sm-6 col-lg-6 col-md-6">
+                    <input type="button" class="showBtn btn btn-info" name="skill" value="Front">
+                    <div class="hideme">
+                        <label for="skills"></label><br>
+                        <input type="checkbox" name="skills[]" class="check" value="HTML">
+                        <label for="">HTML</label>
+                        <input type="checkbox" name="skills[]" class="check" value="CSS">
+                        <label for="">CSS</label>
+                        <input type="checkbox" name="skills[]" class="check" value="BOOTSTRAP">
+                        <label for="">BOOTSTRAP</label>
+                        <input type="checkbox" name="skills[]" class="check" value="JQUERY">
+                        <label for="">JQUERY</label>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6 col-md-6">
+                    <input type="button" class="showBtn btn btn-info" value="Back">
+                    <div class="hideme">
+                        <label for="skills"></label><br>
+                        <input type="checkbox" name="skills[]" class="check" value="PHP">
+                        <label for="">PHP</label>
+                        <input type="checkbox" name="skills[]" class="check" value="JAVA">
+                        <label for="">JAVA</label>
+                        <input type="checkbox" name="skills[]" class="check" value="NodeJS">
+                        <label for="">NodeJS</label>
+                    </div>
+                </div>
+                <div class="div">
+                    <label for=""></label><br>
+    
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- <div class="checkbox form-group">
+
+            <label for="skills[]">Skills</label><br>
+            <input type="checkbox" name="skills[]" class="check" value="HTML">
+            <label for="skills">HTML</label>
+            <input type="checkbox" name="skills[]" class="check" value="JS">
+            <label for="skills">JS</label>
+            <input type="checkbox" name="skills[]" class="check" value="CSS">
+            <label for="skills">CSS</label>
+            <input type="checkbox" name="skills[]" class="check" value="PHP">
+            <label for="skills">PHP</label>
+            <input type="checkbox" name="skills[]" class="check" value="JQuery">
+            <label for="skills">Jquery</label>
+
+            <div class="div"></div>
+        </div>
+        <hr> -->
+        <hr>
+        <div class="checkbox form-group" >
+            <input type="checkbox" class="agree" id="agree" name="agree">
+            <label for="agree">I agree to <a class="agree text-secondary" href="#">terms and conditions!</a></label>
+           <div class="xyz"></div>
+        </div>
+        <hr>
+
+
+
+
+
+
+        <div class="form-group">
+            <input type="submit" name="submit" class="btn btn-primary  mb-2" value="Submit">
+
+        </div>
+
+    </form>
+
+
+    <script>
+        $(function () {
+            $("form[name='form']").validate({
+                rules: {
+                    name: {
+                        required: true,
+                        // lettersonly: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+
+
+                    password: {
+                        required: true,
+                        minlength: 5
+                    },
+                    phone: {
+                        required: true,
+                        phoneUS: true
+                    },
+                    'skills[]': {
+                        required: true
+                    },
+                    gender: {
+                        required: true
+                    },
+                    address: {
+                        required: true
+                    },
+
+                    agree: {
+                        required: true
+
+                    },
+                    dob: {
+                        required: true,
+                        minAge: 18
+                    },
+                    country: {
+                        required: true
+                    },
+                    state: {
+                        required: true
+                    },
+                    city: {
+                        required: true
+                    },
+                    zip: {
+                        required: true
+                    }
+
+
+                },
+                messages: {
+
+                    name: {
+                        required: 'Name is required!',
+                        // lettersonly: 'Please Enter Valid Name'
+                    },
+                    email: {
+                        required: 'Email is required!'
+                    },
+                    dob: {
+                        required: 'Date of Birth is required!'
+                    },
+                    password: {
+                        required: 'Password is required!',
+
+                    },
+                    phone: {
+                        required: 'Mobile number is required!',
+                        phoneUS: "Enter Valid No."
+
+                    },
+                    'skills[]': {
+                        required: 'Please Select Atleast one skill'
+                    },
+                    gender: {
+                        required: 'Please Select Gender'
+                    },
+                    address: {
+                        required: 'Address is required!'
+                    },
+
+                    agree: {
+                        required: 'Please accept the terms and conditions!'
+
+                    },
+                    dob: {
+                        required: "Please enter you date of birth.",
+                        minAge: "Minimum Age required is 18"
+                    },
+                    country: {
+                        required: "PLease select country"
+                    },
+                    state: {
+                        required: "Select Country First"
+                    },
+                    city: {
+                        required: "Select city"
+                    },
+                    zip: {
+                        required: "Select ZIP"
+                    }
+
+
+                },
+
+                // appending errors in the dom
+
+                errorPlacement: function (error, element) {
+                    if (element.is(":radio")) {
+                        error.appendTo(element.parents(".radio"));
+                    } else if (element.is(":checkbox")) {
+                        error.appendTo(element.parents(".checkbox"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+
+            });
+        });
+    </script>
+
+    <!-- printing values of selected checkboxes on html dom  -->
+    <!-- <script>
+        $('.checkbox').on("click", function () {
+            var array = [];
+            $('.check:checked').each(function () {
+                array.push($(this).val());
+            });
+            $('.div').text(array);
+        });
+    </script> -->
+
+
+    <!-- for agree checkbox -->
+    <!-- <script>
+        $('.agree').on("click", function () {
+            var agree = " ";
+            $('.agree:checked').each(function () {
+                // agree.push($(this).val());
+
+            });
+            $('.xyz').html('Thankyou');
+
+        });
+    </script> -->
+    <!-- end of agree chkbox? -->
+
+    <!-- printing value of selected radio button on htmldom -->
+    <script>
+        function displayRadioValue() {
+            var ele = document.getElementsByName('gender');
+
+            for (i = 0; i < ele.length; i++) {
+                if (ele[i].checked)
+                    document.getElementById("dis").innerHTML
+                        = ele[i].value;
+            }
+        }
+    </script>
+
+    <!-- <script>
+        $(function () {
+            $("#dob").datepicker({
+
+                onSelect: function (value, ui) {
+                    var today = new Date(),
+                        age = today.getFullYear() - ui.selectedYear;
+                    $('#age').val(age);
+
+
+                },
+
+                dateFormat: 'dd-mm-yy',
+                changeMonth: true,
+                changeYear: true,
+                //   maxDate:'-18Y',
+                yearRange: "c-100:c+0"
+
+            });
+
+        });
+
+    </script> -->
+
+
+    <!-- age valiadtor for 18 years -->
+    <script>
+
+        $.validator.addMethod("minAge", function (value, element, min) {
+            var today = new Date();
+            var birthDate = new Date(value);
+            var age = today.getFullYear() - birthDate.getFullYear();
+            $("#age").val(age);
+
+
+            if (age > min + 1) {
+                return true;
+            }
+
+            var m = today.getMonth() - birthDate.getMonth();
+
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            return age >= min;
+        });
+    </script>
+    <!-- end of age valiadtor -->
+
+
+    <!-- Start Dropdown//for two input fields  -->
+    <!-- <script>
+        jQuery(function ($) {
+            var locations = {
+                'India': ['HP', 'AP', 'UP'],
+                'Spain': ['Barcelona', 'AliCante', 'Malaga'],
+                'Hungary': ['Pecs', 'Budapest'],
+                'USA': ['Downers Grove', 'WashintonD.C', 'NewYork'],
+
+            }
+
+            var $locations = $('#state');
+            $('#country').change(function () {
+                var country = $(this).val(), lcns = locations[country] || [];
+
+                var html = $.map(lcns, function (lcn) {
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+                }).join('');
+                $locations.html(html);
+            });
+        });
+    </script> -->
+
+    <!-- End Dropdown > -->
+
+
+
+    <!-- multiple dropdown start -->
+    <script>
+        var countryStateInfo = {
+            "USA": {
+                "California": {
+                    "Los Angeles": ["90001"],
+                    "San Diego": ["92093"]
+                },
+                "Texas": {
+                    "Dallas": ["75201"],
+                    "Austin": ["73301"]
+                }
+            },
+            "India": {
+                "Assam": {
+                    "Dispur": ["781005"],
+                    "Guwahati": ["781030"]
+                },
+                "Gujarat": {
+                    "Vadodara": ["390011"],
+                    "Surat": ["395006"]
+                }
+            }
+        }
+
+
+        window.onload = function () {
+
+            //Get html elements
+            var countySel = document.getElementById("countySel");
+            var stateSel = document.getElementById("stateSel");
+            var citySel = document.getElementById("citySel");
+            var zipSel = document.getElementById("zipSel");
+
+            //Load countries
+            for (var country in countryStateInfo) {
+                countySel.options[countySel.options.length] = new Option(country, country);
+            }
+
+            //County Changed
+            countySel.onchange = function () {
+
+                stateSel.length = 1; // remove all options bar first
+                citySel.length = 1; // remove all options bar first
+                zipSel.length = 1; // remove all options bar first
+
+                if (this.selectedIndex < 1)
+                    return; // done
+                console.log("value", this.value);
+                for (var state in countryStateInfo[this.value]) {
+                    stateSel.options[stateSel.options.length] = new Option(state, state);
+                }
+            }
+
+            //State Changed
+            stateSel.onchange = function () {
+
+                citySel.length = 1; // remove all options bar first
+                zipSel.length = 1; // remove all options bar first
+
+                if (this.selectedIndex < 1)
+                    return; // done
+
+                for (var city in countryStateInfo[countySel.value][this.value]) {
+                    citySel.options[citySel.options.length] = new Option(city, city);
+                }
+            }
+
+            //City Changed
+            citySel.onchange = function () {
+                zipSel.length = 1; // remove all options bar first
+
+                if (this.selectedIndex < 1)
+                    return; // done
+
+                var zips = countryStateInfo[countySel.value][stateSel.value][this.value];
+                for (var i = 0; i < zips.length; i++) {
+                    zipSel.options[zipSel.options.length] = new Option(zips[i], zips[i]);
+                }
+            }
+        }
+    </script>
+    <!-- multiple dropdown end -->
+
+    <!--start//-- email/parentemail hide and show conditional -->
+    <script>
+        function switchVisible() {
+            if (document.getElementById('selfdiv')) {
+
+                if (document.getElementById('selfdiv').style.display == 'none') {
+                    document.getElementById('selfdiv').style.display = 'block';
+                    document.getElementById('parentdiv').style.display = 'none';
+                }
+                else {
+                    document.getElementById('selfdiv').style.display = 'none';
+                    document.getElementById('parentdiv').style.display = 'block';
+                }
+            }
+        }
+    </script>
+    <!-- end of//-- email/parentemail hide and show conditional -->
+
+    <!-- hide/show skills -->
+    <script>
+        $('.showBtn').click(function () {
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
+                $('.hideme').slideUp();
+            } else {
+                $('.hideme').slideUp();
+                $('.showBtn').removeClass('active');
+                $(this).addClass('active');
+                $(this).next().filter('.hideme').slideDown();
+            }
+        });
+    </script>
+    <!-- printing values of hide/show skill -->
+    <script>
+        $('.checkbox').on("click", function () {
+            var array = [];
+            $('.check:checked').each(function () {
+                array.push($(this).val());
+            });
+            $('.div').text(array);
+        });
+    </script>
+    <!-- end of printing -->
+    <script>
+        $('.hideme').on("click", function () {
+            var array = [];
+            $('.check:checked').each(function () {
+                array.push($(this).val());
+            });
+            $('.div').text(array);
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>
